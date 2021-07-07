@@ -78,10 +78,10 @@ class Student
     sql = <<-SQL
       SELECT * FROM students
       WHERE grade = 10
-      LIMIT[number]
+      LIMIT ?
     SQL
 
-    DB[:conn].execute(sql).map do |row|
+    DB[:conn].execute(sql, number).map do |row|
       self.new_from_db(row)
     end
   end
@@ -100,10 +100,10 @@ class Student
   def self.all_students_in_grade_X(i)
     sql = <<-SQL
       SELECT * FROM students
-      WHERE grade = i
+      WHERE grade = ?
     SQL
 
-    DB[:conn].execute(sql).map do |row|
+    DB[:conn].execute(sql, i).map do |row|
       self.new_from_db(row)
     end
   end
